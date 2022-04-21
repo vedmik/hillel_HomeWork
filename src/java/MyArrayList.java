@@ -8,7 +8,98 @@ import java.util.stream.Stream;
 
 public class MyArrayList implements List {
 
+    private final int ELEMENT_CAPACITY = 10;
+    private Object[] elementData;
+    private int size;
 
+    public void myArrayList() {
+        this.elementData = new Object[ELEMENT_CAPACITY];
+        this.size = 0;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        boolean result = false;
+        for (int i = 0; i < size; i++) {
+            if (o.equals(elementData[i])) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+
+    @Override
+    public Object[] toArray() {
+        return Arrays.copyOf(elementData, size);
+    }
+
+    @Override
+    public Object[] toArray(Object[] a) {
+        return new Object[0];
+    }
+
+    @Override
+    public void clear() {
+        this.elementData = new Integer[ELEMENT_CAPACITY];
+        this.size = 0;
+    }
+
+    @Override
+    public Object get(int index) {
+        return elementData[index];
+    }
+
+    @Override
+    public boolean add(Object o) {
+        if(elementData.length == size){
+            elementData = Arrays.copyOf(elementData,elementData.length + 1);
+            elementData[elementData.length - 1] = o;
+            size++;
+            return true;
+        } else if(elementData.length > size){
+            elementData[size] = o;
+            size++;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void add(int index, Object element) {
+        if(index <= size) {
+            Object[] newArr = new Object[elementData.length + 1];
+            System.arraycopy(elementData, 0, newArr, 0, index);
+            newArr[index] = element;
+            System.arraycopy(elementData, index, newArr, index + 1, elementData.length - index);
+            elementData = newArr;
+        }
+    }
+
+    @Override
+    public Object remove(int index) {
+        if(index <= size ){
+            Object[] newArr = new Object[elementData.length == 0 ? elementData.length : elementData.length - 1];
+            System.arraycopy(elementData, 0,newArr,0,index);
+            System.arraycopy(elementData, index + 1, newArr, index,elementData.length - index - 1);
+            elementData = newArr;
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
 
     @Override
