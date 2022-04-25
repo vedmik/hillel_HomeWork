@@ -29,14 +29,12 @@ public class MyArrayList implements List {
 
     @Override
     public boolean contains(Object o) {
-        boolean result = false;
         for (int i = 0; i < size; i++) {
             if (o.equals(elementData[i])) {
-                result = true;
-                break;
+                return true;
             }
         }
-        return result;
+        return false;
     }
 
 
@@ -64,7 +62,7 @@ public class MyArrayList implements List {
     @Override
     public boolean add(Object o) {
         if(elementData.length == size){
-            elementData = Arrays.copyOf(elementData,elementData.length + 1);
+            elementData = Arrays.copyOf(elementData,elementData.length * 2);
             elementData[elementData.length - 1] = o;
             size++;
             return true;
